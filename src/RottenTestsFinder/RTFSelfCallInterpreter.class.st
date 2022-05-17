@@ -72,7 +72,7 @@ RTFSelfCallInterpreter >> send: aSelector fromClass: aClass [
 ]
 
 { #category : #visiting }
-RTFSelfCallInterpreter >> visitArgumentNode: aRBArgumentNode [ 
+RTFSelfCallInterpreter >> visitArgumentVariableNode: aRBArgumentNode [ 
 
 	self visitVariableNode: aRBArgumentNode
 ]
@@ -102,7 +102,7 @@ RTFSelfCallInterpreter >> visitCascadeNode: aRBCascadeNode [
 ]
 
 { #category : #visiting }
-RTFSelfCallInterpreter >> visitGlobalNode: aRBGlobalNode [ 
+RTFSelfCallInterpreter >> visitGlobalVariableNode: aRBGlobalNode [ 
 	
 	self visitVariableNode: aRBGlobalNode
 ]
@@ -138,10 +138,10 @@ RTFSelfCallInterpreter >> visitMessageNode: aRBMessageNode [
 	aRBMessageNode receiver acceptVisitor: self.
 	aRBMessageNode arguments do: [ :each | each acceptVisitor: self ].
 	
-	(aRBMessageNode receiver isSelf or: [ aRBMessageNode receiver isSuper ])
+	(aRBMessageNode receiver isSelfVariable or: [ aRBMessageNode receiver isSuperVariable ])
 		ifFalse: [ ^ self ].
 	
-	selfSentMethod := (aRBMessageNode receiver isSuper
+	selfSentMethod := (aRBMessageNode receiver isSuperVariable
 		ifTrue: [ selfClass superclass ]
 		ifFalse: [ selfClass ]) lookupSelector: aRBMessageNode selector.
 	
@@ -195,7 +195,7 @@ RTFSelfCallInterpreter >> visitSuperNode: aRBSuperNode [
 ]
 
 { #category : #visiting }
-RTFSelfCallInterpreter >> visitTemporaryNode: aRBTemporaryNode [ 
+RTFSelfCallInterpreter >> visitTemporaryVariableNode: aRBTemporaryNode [ 
 	
 	self visitVariableNode: aRBTemporaryNode
 ]
