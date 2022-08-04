@@ -5,6 +5,6 @@
 ```
 Metacello new
     baseline: 'RottenTestsFinder';
-    repository: 'github://juliendelplanque/RottenTestsFinder/src';
+    repository: 'github://tesonep/RottenTestsFinder/src';
     load
 ```
